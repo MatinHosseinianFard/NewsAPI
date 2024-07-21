@@ -45,6 +45,8 @@ INSTALLED_APPS = [
 
     # Third party
     'rest_framework',
+
+    'api.apps.ApiConfig'
 ]
 
 MIDDLEWARE = [
