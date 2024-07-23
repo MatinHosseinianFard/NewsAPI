@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from News.News.spiders.zoomit import ZoomitSpider
+from scraper.scraper.spiders.zoomit import ZoomitSpider
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 
