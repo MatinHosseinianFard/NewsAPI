@@ -11,7 +11,7 @@ class Tag(models.Model):
 class New(models.Model):
     title = models.CharField(max_length=255)
     body = models.TextField()
-    tags = models.ManyToManyField(Tag, related_name='articles')
+    tags = models.ManyToManyField(Tag, related_name='news')
     source = models.CharField(max_length=255)
 
     def __str__(self):
