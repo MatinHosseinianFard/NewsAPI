@@ -1,0 +1,113 @@
+services:
+
+  rabbitmq_container:
+    container_name: rabbitmq_container
+    image: rabbitmq:3.12-management
+    networks:
+      - main
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    restart: always
+
+
+  postgres:
+    container_name: postgres
+    image: postgres:14.12-bullseye
+    #    env_file: "./core/.env"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - main
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+  celery_worker:
+    container_name: celery_worker
+    build: .
+    command: "celery -A core worker --pool=solo --loglevel=info"
+    depends_on:
+      - app
+      - rabbitmq_container
+      - postgres
+    environment:
+      - C_FORCE_ROOT="true"
+    networks:
+      - main
+    restart: always
+
+
+  celery_beat:
+    container_name: celery_beat
+    build: .
+    command: "celery -A core beat --loglevel=info"
+    depends_on:
+      - app
+      - rabbitmq_container
+      - postgres
+    networks:
+      - main
+    restart: always
+
+
+  celery_flower:
+    container_name: celery_flower
+    build: .
+    command: "celery -A core flower --port=5555"
+    depends_on:
+      - celery_worker
+    networks:
+      - main
+    ports:
+      - "5555:5555"
+    restart: always
+
+
+  app:
+    container_name: app
+    build: .
+    command: sh -c "python manage.py migrate && gunicorn --workers 3 --bind 0.0.0.0:8000 core.wsgi:application"
+    volumes:
+      - .:/code/
+      - static_volume:/code/static
+    env_file: "./core/.env"
+    depends_on:
+      - postgres
+      - rabbitmq_container
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+    networks:
+      - main
+    restart: always
+
+
+  nginx:
+    image: nginx:1.27.0
+    container_name: nginx
+    command: nginx -g 'daemon off;'
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    networks:
+      - main
+    restart: always
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - static_volume:/code/static
+
+
+networks:
+  main:
+
+volumes:
+  postgres_data:
+  static_volume:
