@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third party
+    'drf_yasg',
     'gunicorn',
     'rest_framework',
     'django_filters',

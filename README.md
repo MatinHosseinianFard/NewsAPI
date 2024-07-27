@@ -34,7 +34,7 @@ First, clone the repository to your local machine:
 
 ```bash
 git clone https://github.com/MatinHosseinianFard/NewsAPI.git
-cd NewsAPI
+cd NewsAPI/
 ```
 
 ### 2. Build and Start the Containers
@@ -50,14 +50,14 @@ Build the Docker images as specified in the `Dockerfile`.
 
 Start the containers as defined in the `docker-compose.yml` file.
 
-#### Apply database migrations:
-```bash
-docker-compose exec -it app python manage.py migrate
-```
 
 #### Create a superuser (optional, for accessing Django admin):
 ```bash
-docker-compose exec -it app python manage.py createsuperuser
+docker-compose exec -it app
+```
+Then:
+```bash
+python manage.py createsuperuser
 ```
 
 ### 3. Access the Application
@@ -69,6 +69,12 @@ The Django admin interface can be accessed at http://localhost:8000/admin.
 The project includes an API endpoint to fetch news articles from Zoomit. The endpoint can be accessed at:
 ```bash
 GET /api/news/
+```
+
+### Celery Flower
+Celery Flower, a real-time monitoring tool for Celery, is available at:
+```bash
+http://localhost:5556
 ```
 
 ### Project Structure

@@ -65,7 +65,7 @@ services:
     networks:
       - main
     ports:
-      - "5555:5555"
+      - "5556:5555"
     restart: always
 
 
