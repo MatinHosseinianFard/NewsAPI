@@ -67,15 +67,15 @@ The Django admin interface can be accessed at http://localhost:8000/admin.
 
 ### Urls
 
-http://194.33.105.207/
+http://localhost/
 
-http://194.33.105.207/admin
+http://localhost/admin
 
-http://194.33.105.207/api/news
+http://localhost/api/news
 
-http://194.33.105.207/api/news?tags__name=
+http://localhost/api/news?tags__name=
 
-http://194.33.105.207:5556
+http://localhost:5556
 
 
 
