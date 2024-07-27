@@ -65,11 +65,19 @@ The application will be available at http://localhost:8000.
 
 The Django admin interface can be accessed at http://localhost:8000/admin.
 
-### API Endpoints
-The project includes an API endpoint to fetch news articles from Zoomit. The endpoint can be accessed at:
-```bash
-GET /api/news/
-```
+### Urls
+
+http://194.33.105.207/
+
+http://194.33.105.207/admin
+
+http://194.33.105.207/api/news
+
+http://194.33.105.207/api/news?tags__name=
+
+http://194.33.105.207:5556
+
+
 
 ### Celery Flower
 Celery Flower, a real-time monitoring tool for Celery, is available at:
