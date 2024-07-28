@@ -35,7 +35,7 @@ class ZoomitSpider(scrapy.Spider):
         tags = response.meta['tags']
 
         # Extract the main content of the news article
-        content = response.css('.hXzioD *')
+        content = response.css('.hXHdEW *')
         body_parts = []
 
         # Process the content: paragraphs and list items
